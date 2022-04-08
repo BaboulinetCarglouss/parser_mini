@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 18:00:34 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/08 16:56:05 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:39:39 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	parse_split_ret_error(t_split *split, int i)
 	free(split);
 }
 
+/*
+ *
 void	display_token_properties(t_token *token, int i)
 {
 	if (token[i].is_redirection_input == 1)
@@ -51,10 +53,27 @@ void	display_token_properties(t_token *token, int i)
 	if (token[i].is_pipe == 1)
 		printf("token %d is pipe\n", token[i].id_token);
 }
+*
+*/
+
+int	is_there_wrong_token(t_token *token)
+{
+	int	i;
+
+	i = 0;
+	while (token[i].elem != NULL)
+	{
+		if (token[i].is_wrong == 1)
+			return (i);
+		i++;
+	}
+	return (0);
+}
 
 void	process_split(t_split *split, int i)
 {
 	t_token	*token;
+	int		err;
 
 	token = ft_token(split);
 	if (token == NULL)
@@ -65,16 +84,18 @@ void	process_split(t_split *split, int i)
 	while (token[i].elem != NULL)
 	{
 		which_is(token, i);
+		err = is_there_wrong_token(token);
+		if (err != 0)
+		{
+			perror("process_split(): missing closing quote");
+			unload(split, token);
+			return ;
+		}
 		printf("token[%d] = %s\n", token[i].id_token, token[i].elem);
 		//display_token_properties(token, i);
 		i++;
 	}
-	i = 0;
-	while (split->split[i] != NULL)
-		free(split->split[i++]);
-	free(split->split);
-	free(split);
-	free(token);
+	unload(split, token);
 }
 
 void	parse(char *line_buffer)

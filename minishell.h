@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:17:59 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/08 17:33:37 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:33:41 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_token
 	int		is_arg;
 	int		is_single_quoted;
 	int		is_double_quoted;
+	int		is_wrong;
 	char	*elem;
 }	t_token;
 
@@ -78,6 +79,7 @@ int		skip_space(char *str);
  */
 
 void	to_quote_or_not_to_quote(char *str, int i, t_split *split);
+int		is_quoted_good(char *str);
 
 /*
  *	parser.c
@@ -110,4 +112,9 @@ t_index	*indexing(char *str, t_split *split);
 
 void	which_is(t_token *token, int i);
 
+/*
+ *	unload.c
+ */
+
+void	unload(t_split *split, t_token *token);
 #endif

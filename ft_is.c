@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 11:54:14 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/08 15:48:48 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:23:39 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,30 @@ void	is_command(t_token *token, int i)
 		token[i].is_arg = 1;
 }
 
+void	is_quoted(t_token *token, int i)
+{
+	if (token[i].elem[0] == '\"')
+	{
+		if (is_quoted_good(token[i].elem) == 0)
+			token[i].is_double_quoted = 1;
+		else
+			token[i].is_wrong = 1;
+	}
+	else if (token[i].elem[0] == '\'')
+	{
+		if (is_quoted_good(token[i].elem) == 0)
+			token[i].is_single_quoted = 1;
+		else
+			token[i].is_wrong = 1;
+	}
+}
+
 void	which_is(t_token *token, int i)
 {
 	if (is_meta_char(token, i) == 0)
 	{
-		if (token[i].elem[0] == '\"')
-			token[i].is_double_quoted = 1;
-		else if (token[i].elem[0] == '\'')
-			token[i].is_single_quoted = 1;
+		if (token[i].elem[0] == '\"' || token[i].elem[0] == '\'')
+			is_quoted(token, i);
 		else
 		{
 			if (i == 0 && is_defined(token, i) == 0)
