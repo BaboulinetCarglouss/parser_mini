@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 18:00:34 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/08 18:39:39 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/09 16:03:42 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	process_split(t_split *split, int i)
 		err = is_there_wrong_token(token);
 		if (err != 0)
 		{
-			perror("process_split(): missing closing quote");
+			perror("process_split(): syntax error");
 			unload(split, token);
 			return ;
 		}
