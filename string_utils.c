@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:57:44 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/07 18:46:50 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/11 15:16:24 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,25 @@ int	skip_space(char *str)
 	while (str[i] == 32)
 		i++;
 	return (i);
+}
+
+char	*ft_strdup(char *str)
+{
+	char	*dup;
+	int		i;
+
+	i = 0;
+	dup = malloc(sizeof(char) * ft_strlen(str) + 1);
+	if (dup == NULL)
+	{
+		perror("ft_strdup(): error allocating dup");
+		return (NULL);
+	}
+	ft_memset((void *)dup, 0, ft_strlen(str) + 1);
+	while (str[i])
+	{
+		dup[i] = str[i];
+		i++;
+	}
+	return (dup);
 }

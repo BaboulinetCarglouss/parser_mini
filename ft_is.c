@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 11:54:14 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/09 17:39:30 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/11 15:34:39 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,11 @@ void	is_env_variable(t_token *token, int i)
 	while (token[i].elem[i_str] != 0)
 	{
 		if (i_str > 0 && token[i].elem[i_str - 1] != '\\' && 
-			token[i].elem[i_str] == '$')
+			token[i].elem[i_str] == '$' && token[i].elem[i_str + 1])
 			token[i].is_env_variable = 1;
 		i_str++;
 	}
 }
-
 
 void	is_quoted(t_token *token, int i)
 {
@@ -94,7 +93,9 @@ void	which_is(t_token *token, int i)
 {
 	if (is_meta_char(token, i) == 0)
 	{
-		if (token[i].elem[0] == '\"' || token[i].elem[0] == '\'')
+		if (token[i].elem[0] == '$' && token[i].elem[1] != 0)
+			token[i].is_env_variable = 1;
+		else if (token[i].elem[0] == '\"' || token[i].elem[0] == '\'')
 			is_quoted(token, i);
 		else
 		{

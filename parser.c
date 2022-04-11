@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 18:00:34 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/09 16:03:42 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/11 17:25:03 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	parse_split_ret_error(t_split *split, int i)
 	free(split);
 }
 
-/*
- *
+
+ 
 void	display_token_properties(t_token *token, int i)
 {
 	if (token[i].is_redirection_input == 1)
@@ -52,9 +52,11 @@ void	display_token_properties(t_token *token, int i)
 			token[i].id_token);
 	if (token[i].is_pipe == 1)
 		printf("token %d is pipe\n", token[i].id_token);
+	if (token[i].is_env_variable == 1)
+		printf("token %d is env varaible\n", token[i].id_token);
 }
-*
-*/
+
+
 
 int	is_there_wrong_token(t_token *token)
 {
@@ -91,8 +93,10 @@ void	process_split(t_split *split, int i)
 			unload(split, token);
 			return ;
 		}
+	//	if (token[i].is_env_variable == 1)
+	//		convert_env_var(token, i);
 		printf("token[%d] = %s\n", token[i].id_token, token[i].elem);
-		//display_token_properties(token, i);
+		display_token_properties(token, i);
 		i++;
 	}
 	unload(split, token);

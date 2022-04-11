@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:17:59 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/08 18:33:41 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/11 15:21:08 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_token
 	int		is_here_doc;
 	int		is_append_output;
 	int		is_pipe;
+	int		is_env_variable;
 	int		is_cmd;
 	int		is_arg;
 	int		is_single_quoted;
@@ -71,7 +72,7 @@ t_token	*ft_token(t_split *split);
 
 void	count_quotes(char *str, t_split *split);
 int		ft_strlen(char *str);
-char	*ft_strdup(char *s);
+char	*ft_strdup(char *str);
 int		skip_space(char *str);
 
 /*
@@ -117,4 +118,11 @@ void	which_is(t_token *token, int i);
  */
 
 void	unload(t_split *split, t_token *token);
+
+/*
+ *	convert_env_var.c
+ */
+
+void	convert_env_var(t_token *token, int i);
+
 #endif
