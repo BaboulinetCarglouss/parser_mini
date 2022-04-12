@@ -6,7 +6,7 @@
 #    By: gfritsch <gfritsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/12 11:17:57 by gfritsch          #+#    #+#              #
-#    Updated: 2022/04/11 15:20:31 by gfritsch         ###   ########.fr        #
+#    Updated: 2022/04/12 14:28:52 by gfritsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS	=	ft_quote.c			\
 			ft_token.c			\
 			ft_is.c				\
 			unload.c			\
-			convert_env_var.c	\
+			seek_meta_char.c	\
 			main.c
 
 OBJS	=	$(SRCS:.c=.o)

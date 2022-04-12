@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:17:59 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/11 15:21:08 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/12 16:16:11 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,40 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef struct s_subtoken
+{
+	int			id_subtoken;
+	int			sub_is_redirection_input;
+	int			sub_is_redirection_output;
+	int			sub_is_here_doc;
+	int			sub_is_append_output;
+	int			sub_is_pipe;
+	int			sub_is_env_variable;
+	int			sub_is_cmd;
+	int			sub_is_arg;
+	int			sub_is_single_quoted;
+	int			sub_is_double_quoted;
+	int			sub_is_wrong;
+	char		*sub;
+}	t_subtoken;
+
 typedef struct s_token
 {
-	int		id_token;
-	int		is_redirection_input;
-	int		is_redirection_output;
-	int		is_here_doc;
-	int		is_append_output;
-	int		is_pipe;
-	int		is_env_variable;
-	int		is_cmd;
-	int		is_arg;
-	int		is_single_quoted;
-	int		is_double_quoted;
-	int		is_wrong;
-	char	*elem;
+	int			id_token;
+	int			is_redirection_input;
+	int			is_redirection_output;
+	int			is_here_doc;
+	int			is_append_output;
+	int			is_pipe;
+	int			is_env_variable;
+	int			is_cmd;
+	int			is_arg;
+	int			is_single_quoted;
+	int			is_double_quoted;
+	int			is_wrong;
+	int			has_subtoken;
+	char		*elem;
+	t_subtoken	*subtoken;
 }	t_token;
 
 typedef struct s_split
@@ -120,9 +139,9 @@ void	which_is(t_token *token, int i);
 void	unload(t_split *split, t_token *token);
 
 /*
- *	convert_env_var.c
+ *	seek_meta_char.c
  */
 
-void	convert_env_var(t_token *token, int i);
+void	seek_meta_char(t_token *token, int i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 18:00:34 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/11 17:25:03 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/12 14:31:08 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	display_token_properties(t_token *token, int i)
 		printf("token %d is env varaible\n", token[i].id_token);
 }
 
-
-
 int	is_there_wrong_token(t_token *token)
 {
 	int	i;
@@ -66,7 +64,7 @@ int	is_there_wrong_token(t_token *token)
 	while (token[i].elem != NULL)
 	{
 		if (token[i].is_wrong == 1)
-			return (i);
+			return (-1);
 		i++;
 	}
 	return (0);
@@ -93,10 +91,10 @@ void	process_split(t_split *split, int i)
 			unload(split, token);
 			return ;
 		}
-	//	if (token[i].is_env_variable == 1)
-	//		convert_env_var(token, i);
 		printf("token[%d] = %s\n", token[i].id_token, token[i].elem);
 		display_token_properties(token, i);
+		if (token[i].is_arg == 1)
+			seek_meta_char(token, i);
 		i++;
 	}
 	unload(split, token);
