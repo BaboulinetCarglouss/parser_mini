@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 18:00:34 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/12 14:31:08 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:00:04 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,19 @@ int	is_there_wrong_token(t_token *token)
 	return (0);
 }
 
+void	display_subtoken(t_token *token, int i_tok)
+{
+	int	i_subtok;
+
+	i_subtok = 0;
+	while (i_subtok < token[i_tok].nb_subtoken)
+	{
+		printf("token[%d]->subtoken[%d] = %s\n", i_tok, i_subtok,
+				token[i_tok].subtoken[i_subtok].sub_elem);
+		i_subtok++;
+	}
+}
+
 void	process_split(t_split *split, int i)
 {
 	t_token	*token;
@@ -93,8 +106,11 @@ void	process_split(t_split *split, int i)
 		}
 		printf("token[%d] = %s\n", token[i].id_token, token[i].elem);
 		display_token_properties(token, i);
-		if (token[i].is_arg == 1)
-			seek_meta_char(token, i);
+		if (token[i].is_arg == 1 && seek_meta_char(token, i) != 0)
+		{
+			subtokenize(token, i);
+			display_subtoken(token, i);
+		}
 		i++;
 	}
 	unload(split, token);

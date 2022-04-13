@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 12:41:39 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/12 16:37:05 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:01:40 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	display_which_meta(int ret)
 		printf("seek_meta: ret value is %d -> append output meta char found\n", ret);
 }
 
-void	seek_meta_char(t_token *token, int i)
+int	seek_meta_char(t_token *token, int i)
 {
 	int	i_str;
 	int	ret;
@@ -55,7 +55,8 @@ void	seek_meta_char(t_token *token, int i)
 		if (ret == 4 || ret == 5)
 			i_str = i_str + 2;
 		if (ret != 0)
-			display_which_meta(ret);
+			return (ret);
 		i_str++;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:17:59 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/12 16:16:11 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:02:36 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 typedef struct s_subtoken
 {
 	int			id_subtoken;
+	int			father_token;
 	int			sub_is_redirection_input;
 	int			sub_is_redirection_output;
 	int			sub_is_here_doc;
@@ -39,7 +40,7 @@ typedef struct s_subtoken
 	int			sub_is_single_quoted;
 	int			sub_is_double_quoted;
 	int			sub_is_wrong;
-	char		*sub;
+	char		*sub_elem;
 }	t_subtoken;
 
 typedef struct s_token
@@ -56,7 +57,7 @@ typedef struct s_token
 	int			is_single_quoted;
 	int			is_double_quoted;
 	int			is_wrong;
-	int			has_subtoken;
+	int			nb_subtoken;
 	char		*elem;
 	t_subtoken	*subtoken;
 }	t_token;
@@ -124,6 +125,7 @@ int		redo_split(char *str, t_split *split);
  *	indexer.c
  */
 
+t_index	*init_indexer(char *str);
 t_index	*indexing(char *str, t_split *split);
 
 /*
@@ -142,6 +144,19 @@ void	unload(t_split *split, t_token *token);
  *	seek_meta_char.c
  */
 
-void	seek_meta_char(t_token *token, int i);
+int		which_meta_char(t_token *token, int i_tok, int i_str);
+int		seek_meta_char(t_token *token, int i);
+
+/*
+ *	sub_indexer.c
+ */
+
+t_index	*subindexing(t_token *token, int i_tok);
+
+/*
+ *	sub_token.c
+ */
+
+int		subtokenize(t_token *token, int i_tok);
 
 #endif
