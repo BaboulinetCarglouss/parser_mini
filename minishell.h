@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:17:59 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/13 15:02:36 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:37:20 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ typedef struct s_subtoken
 {
 	int			id_subtoken;
 	int			father_token;
-	int			sub_is_redirection_input;
-	int			sub_is_redirection_output;
-	int			sub_is_here_doc;
-	int			sub_is_append_output;
-	int			sub_is_pipe;
-	int			sub_is_env_variable;
-	int			sub_is_cmd;
-	int			sub_is_arg;
-	int			sub_is_single_quoted;
-	int			sub_is_double_quoted;
-	int			sub_is_wrong;
+	int			is_redirection_input;
+	int			is_redirection_output;
+	int			is_here_doc;
+	int			is_append_output;
+	int			is_pipe;
+	int			is_env_variable;
+	int			is_cmd;
+	int			is_arg;
+	int			is_single_quoted;
+	int			is_double_quoted;
+	int			is_wrong;
 	char		*sub_elem;
 }	t_subtoken;
 
@@ -132,6 +132,7 @@ t_index	*indexing(char *str, t_split *split);
  *	ft_is.c
  */
 
+int		is_meta_char(t_token *token, int i);
 void	which_is(t_token *token, int i);
 
 /*
@@ -139,6 +140,7 @@ void	which_is(t_token *token, int i);
  */
 
 void	unload(t_split *split, t_token *token);
+void	unload_indexer(t_index *index);
 
 /*
  *	seek_meta_char.c
@@ -158,5 +160,11 @@ t_index	*subindexing(t_token *token, int i_tok);
  */
 
 int		subtokenize(t_token *token, int i_tok);
+
+/*
+ *	ft_sub_is.c
+ */
+
+void	which_sub_is(t_token *token, int i_tok, int i_subtok);
 
 #endif

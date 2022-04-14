@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 18:00:34 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/13 15:00:04 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:43:06 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,39 @@ void	display_token_properties(t_token *token, int i)
 	if (token[i].is_arg == 1)
 		printf("token %d is argument\n", token[i].id_token);
 	if (token[i].is_single_quoted == 1)
-		printf("token %d is single quoted TODO split quoted content\n",
-			token[i].id_token);
+		printf("token %d is single quoted\n", token[i].id_token);
 	if (token[i].is_double_quoted == 1)
-		printf("token %d is double quoted TODO split quoted content\n",
+		printf("token %d is double quoted TODO isolate quoted env variable\n",
 			token[i].id_token);
 	if (token[i].is_pipe == 1)
 		printf("token %d is pipe\n", token[i].id_token);
 	if (token[i].is_env_variable == 1)
-		printf("token %d is env varaible\n", token[i].id_token);
+		printf("token %d is env variable\n", token[i].id_token);
+}
+
+void	display_sub_token_properties(t_token *token, int i_tok, int i_subtok)
+{
+	if (token[i_tok].subtoken[i_subtok].is_redirection_input == 1)
+		printf("subtoken %d is redirection input\n", i_subtok);
+	if (token[i_tok].subtoken[i_subtok].is_redirection_output == 1)
+		printf("subtoken %d is redirection output\n", i_subtok);
+	if (token[i_tok].subtoken[i_subtok].is_here_doc == 1)
+		printf("subtoken %d is here documents\n", i_subtok);
+	if (token[i_tok].subtoken[i_subtok].is_append_output == 1)
+		printf("subtoken %d is append output\n", i_subtok);
+	if (token[i_tok].subtoken[i_subtok].is_cmd == 1)
+		printf("subtoken %d is command\n", i_subtok);
+	if (token[i_tok].subtoken[i_subtok].is_arg == 1)
+		printf("subtoken %d is argument\n", i_subtok);
+	if (token[i_tok].subtoken[i_subtok].is_single_quoted == 1)
+		printf("subtoken %d is single quoted\n", i_subtok);
+	if (token[i_tok].subtoken[i_subtok].is_double_quoted == 1)
+		printf("token %d is double quoted TODO isolate quoted env variable\n",
+			i_subtok);
+	if (token[i_tok].subtoken[i_subtok].is_pipe == 1)
+		printf("subtoken %d is pipe\n", i_subtok);
+	if (token[i_subtok].subtoken[i_subtok].is_env_variable == 1)
+		printf("subtoken %d is env variable\n", i_subtok);
 }
 
 int	is_there_wrong_token(t_token *token)
@@ -79,6 +103,8 @@ void	display_subtoken(t_token *token, int i_tok)
 	{
 		printf("token[%d]->subtoken[%d] = %s\n", i_tok, i_subtok,
 				token[i_tok].subtoken[i_subtok].sub_elem);
+		//which_sub_is(token, i_tok, i_subtok);
+		//display_sub_token_properties(token, i_tok, i_subtok);
 		i_subtok++;
 	}
 }
