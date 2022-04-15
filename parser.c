@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 18:00:34 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/14 16:43:06 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/15 13:46:43 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	display_sub_token_properties(t_token *token, int i_tok, int i_subtok)
 			i_subtok);
 	if (token[i_tok].subtoken[i_subtok].is_pipe == 1)
 		printf("subtoken %d is pipe\n", i_subtok);
-	if (token[i_subtok].subtoken[i_subtok].is_env_variable == 1)
+	if (token[i_tok].subtoken[i_subtok].is_env_variable == 1)
 		printf("subtoken %d is env variable\n", i_subtok);
 }
 
@@ -103,8 +103,8 @@ void	display_subtoken(t_token *token, int i_tok)
 	{
 		printf("token[%d]->subtoken[%d] = %s\n", i_tok, i_subtok,
 				token[i_tok].subtoken[i_subtok].sub_elem);
-		//which_sub_is(token, i_tok, i_subtok);
-		//display_sub_token_properties(token, i_tok, i_subtok);
+		which_sub_is(token, i_tok, i_subtok);
+		display_sub_token_properties(token, i_tok, i_subtok);
 		i_subtok++;
 	}
 }

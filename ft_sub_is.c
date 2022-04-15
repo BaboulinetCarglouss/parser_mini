@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 11:54:14 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/14 16:38:43 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/15 14:08:32 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,18 @@ void	if_prev_tok_has_subtok(t_token *token, int i_tok, int i_subtok)
 
 void	if_prev_tok_has_no_subtok(t_token *token, int i_tok, int i_subtok)
 {
-	if (is_meta_char(token, i_tok) == 1)
+	if (is_meta_char(token, i_tok - 1) == 1)
 	{
 		if ((i_tok > 0 && token[i_tok - 1].is_append_output == 1)
 			|| (i_tok > 0 && token[i_tok - 1].is_redirection_output == 1))
 			token[i_tok].subtoken[i_subtok].is_arg = 1;
 		else
 			token[i_tok].subtoken[i_subtok].is_cmd = 1;
+	}
+	else
+	{
+		if (i_tok > 0 && token[i_tok - 1].is_cmd == 1)
+			token[i_tok].subtoken[i_subtok].is_arg = 1;
 	}
 }
 
