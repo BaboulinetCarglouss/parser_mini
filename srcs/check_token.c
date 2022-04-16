@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token.c                                         :+:      :+:    :+:   */
+/*   check_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 03:33:01 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/08 14:41:41 by gfritsch         ###   ########.fr       */
+/*   Created: 2022/04/09 16:08:14 by gfritsch          #+#    #+#             */
+/*   Updated: 2022/04/12 01:42:40 by ngenadie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*ft_token(t_split *split)
-{
-	t_token	*token;
-	int		i;
-
-	token = (t_token *)malloc(sizeof(t_token) * split->nb_split);
-	if (token == NULL)
-		return (NULL);
-	ft_memset((void *)token, 0, sizeof(t_token) * split->nb_split);
-	i = 0;
-	while (i < split->nb_split)
-	{
-		token[i].id_token = i;
-		token[i].elem = split->split[i];
-		i++;
-	}
-	return (token);
-}
+//int	check_token(t_token *token)
+//{
+//	int	i;
+//
+//	i = 0;
+//	while (token[i].elem != NULL)
+//	{
+//		if (token[i].is_pipe == 1)
+//
+//		i++;
+//	}
+//}

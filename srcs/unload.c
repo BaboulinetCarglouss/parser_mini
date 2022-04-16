@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 18:26:23 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/14 13:22:17 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/16 02:32:20 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,16 @@ void	unload(t_split *split, t_token *token)
 	{
 		j = 0;
 		while (j < token[i].nb_subtoken)
-			free(token[i].subtoken[j++].sub_elem);
-		free(token[i].subtoken);
+		{
+			if (token[i].is_word == 1)
+				free(token[i].subtoken[j++].sub_elem);
+			else
+				free(token[i].dq[j++].dq_elem);
+		}
+		if (token[i].is_word == 1)
+			free(token[i].subtoken);
+		else
+			free(token[i].dq);
 		i++;
 	}
 	free(token);

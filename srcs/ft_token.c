@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isolate_env.c                                      :+:      :+:    :+:   */
+/*   ft_token.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/14 16:51:44 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/14 17:22:28 by gfritsch         ###   ########.fr       */
+/*   Created: 2022/02/05 03:33:01 by gfritsch          #+#    #+#             */
+/*   Updated: 2022/04/16 02:31:10 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	double_quoted_arg_has_env_variable(char *str)
+t_token	*ft_token(t_split *split)
 {
-	int	i;
+	t_token	*token;
+	int		i;
 
+	token = (t_token *)malloc(sizeof(t_token) * split->nb_split);
+	if (token == NULL)
+		return (NULL);
+	ft_memset((void *)token, 0, sizeof(t_token) * split->nb_split);
 	i = 0;
-	while (str[i] != 0)
+	while (i < split->nb_split)
 	{
-		if (str[i] == '$' && (str[i + 1] != 0 && str[i + 1] != ' '
-				&& str[i + 1] != '\"'))
-			return (i);
+		token[i].elem = split->split[i];
+		i++;
 	}
-	return (0);
+	return (token);
 }

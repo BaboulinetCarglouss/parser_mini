@@ -1,65 +1,44 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 17:17:59 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/14 16:37:20 by gfritsch         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
-# define MINISHELL_H
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <signal.h>
-# include <errno.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+
+# include "dynarray.h"
+
+typedef struct s_doublequote
+{
+	int		id_dq;
+	int		nb_elem;
+	int		is_env;
+	int		is_arg;
+	char	*dq_elem;
+}	t_dq;
 
 typedef struct s_subtoken
 {
-	int			id_subtoken;
-	int			father_token;
-	int			is_redirection_input;
-	int			is_redirection_output;
-	int			is_here_doc;
-	int			is_append_output;
-	int			is_pipe;
-	int			is_env_variable;
-	int			is_cmd;
-	int			is_arg;
-	int			is_single_quoted;
-	int			is_double_quoted;
-	int			is_wrong;
-	char		*sub_elem;
+	int		id_subtoken;
+	int		father_token;
+	int		is_redirection_input;
+	int		is_redirection_output;
+	int		is_here_doc;
+	int		is_append_output;
+	int		is_pipe;
+	int		is_word;
+	int		is_wrong;
+	char	*sub_elem;
+	t_dq	*dq;
 }	t_subtoken;
 
 typedef struct s_token
 {
-	int			id_token;
 	int			is_redirection_input;
 	int			is_redirection_output;
 	int			is_here_doc;
 	int			is_append_output;
 	int			is_pipe;
-	int			is_env_variable;
-	int			is_cmd;
-	int			is_arg;
-	int			is_single_quoted;
-	int			is_double_quoted;
+	int			is_word;
 	int			is_wrong;
 	int			nb_subtoken;
 	char		*elem;
 	t_subtoken	*subtoken;
+	t_dq		*dq;
 }	t_token;
 
 typedef struct s_split
@@ -148,6 +127,7 @@ void	unload_indexer(t_index *index);
 
 int		which_meta_char(t_token *token, int i_tok, int i_str);
 int		seek_meta_char(t_token *token, int i);
+int		seek_and_count_meta_char(t_token *token, int i);
 
 /*
  *	sub_indexer.c
@@ -166,5 +146,40 @@ int		subtokenize(t_token *token, int i_tok);
  */
 
 void	which_sub_is(t_token *token, int i_tok, int i_subtok);
+
+/*
+ *	isolate_env_indexer.c
+ */
+
+int		is_space_or_null_or_dquote(char c);
+t_index	*env_indexing(t_token *token, int i_tok);
+
+/*
+ *	isolate_env.c
+ */
+
+int		double_quoted_arg_has_env(char *str);
+
+/*
+ *	doublequote_token.c
+ */
+
+int		double_quote_tokenize(t_token *token, int i_tok);
+
+char	*ft_get_dir(char *path);
+char	*ft_make_prompt(char *dir);
+int		init_dyn_env(char **envp, t_dynarray *darr);
+void	ft_dyn_env(t_dynarray *darr);
+int		ft_getenv_index(char **envp, uint64_t len, char *str, bool un_exp);
+int		ft_export(t_dynarray *darr, char *str);
+int		ft_envcmp(char *str, char *str2);
+int		ft_unset(t_dynarray *darr, char *str);
+bool	ft_has_eq(char *str);
+int		ft_cd(char *str);
+int		ft_readline(t_dynarray *darr);
+char	*ft_check_bin_path(char *bin, char *paths);
+char	*ft_getenvval(char *str, char **envp, uint64_t len);
+char	*ft_find_bin(char *bin, char *paths, char **argv, char **envp);
+int		ft_len_bef_col(char *paths);
 
 #endif

@@ -1,29 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_env_var.c                                  :+:      :+:    :+:   */
+/*   isolate_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 13:59:31 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/11 15:40:29 by gfritsch         ###   ########.fr       */
+/*   Created: 2022/04/14 16:51:44 by gfritsch          #+#    #+#             */
+/*   Updated: 2022/04/15 17:15:35 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-void	convert_env_var(t_token *token, int i)
+int	dollar_count(char *str)
 {
-	char	*convert;
+	int	i;
+	int	count;
 
-	convert = ft_strdup(getenv(token[i].elem));
-	if (convert == NULL)
+	i = 0;
+	count = 0;
+	while (str[i])
 	{
-		perror("convert_env_var(): error allocating convert string");
-		return ;
+		if (str[i] == '$')
+			count++;
+		i++;
 	}
-	printf("convert is %s\n", convert);
-	free(token[i].elem);
-	token[i].elem = ft_strdup(convert);
-	free(convert);
+	return (count);
+}
+
+int	double_quoted_arg_has_env(char *str)
+{
+	int	i;
+	int	dollar;
+
+	i = 0;
+	dollar = dollar_count(str);
+	while (str[i] != 0)
+	{
+		if (str[i] == '$' && (is_space_or_null_or_dquote(str[i + 1]) == 1))
+			dollar--;
+		i++;
+	}
+	return (dollar);
 }

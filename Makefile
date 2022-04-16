@@ -1,54 +1,31 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: gfritsch <gfritsch@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/05/12 11:17:57 by gfritsch          #+#    #+#              #
-#    Updated: 2022/04/14 16:31:56 by gfritsch         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+CC = gcc
 
-SRCS	=	ft_quote.c			\
-			string_utils.c		\
-			parser.c			\
-			ft_memset.c			\
-			redo_split.c		\
-			indexer.c			\
-			ft_token.c			\
-			ft_is.c				\
-			unload.c			\
-			seek_meta_char.c	\
-			sub_indexer.c		\
-			sub_token.c			\
-			ft_sub_is.c			\
-			main.c
+NAME = minishell
 
-OBJS	=	$(SRCS:.c=.o)
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
-LIBS	=	-lreadline
+SRC	=	ft_exec.c minishell.c dynarray2.c dynarray.c ft_str.c ft_mems.c ft_env.c \
+		ft_print.c ft_builtins.c ft_sig.c check_token.c ft_is.c ft_quote.c \
+		indexer.c parser.c string_utils.c ft_token.c main.c \
+		redo_split.c seek_meta_char.c sub_indexer.c sub_token.c ft_sub_is.c \
+		unload.c isolate_env_indexer.c isolate_env.c doublequote_token.c
 
-NAME	=	minishell
+SRC_D = srcs
+SRC_C = $(addprefix ${SRC_D}/, ${SRC})
 
-CC		=	cc
+INC = dynarray.h minishell.h
+INC_D = includes
+INC_H = $(addprefix ${INC_D}/, ${INC})
 
-RM		=	rm -f
+all: $(NAME)
 
-CFLAGS	=	-Wall -Wextra -Werror -g #-fsanitize=address
+$(NAME): ${INC_H} ${SRC_C}
+	${CC} ${CFLAGS} ${SRC_C} -I${INC_D} -o ${NAME} -lreadline
 
-all		:	$(NAME)
+clean:
+	rm -f $(OBJS)
 
-$(NAME):	${OBJS}
-			${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBS}
+fclean: clean
+	rm -f $(NAME)
 
-clean	:
-			$(RM) $(OBJS)
-
-fclean	:	clean
-			$(RM) $(NAME)
-
-re		:	fclean all
-
-
-.PHONY	:	all clean fclean re
+re: fclean all
