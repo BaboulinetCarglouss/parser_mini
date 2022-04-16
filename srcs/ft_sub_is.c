@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 11:54:14 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/16 02:27:54 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/16 03:32:38 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_sub_defined(t_token *token, int i_tok, int i_subtok)
 {
-		if (token[i_tok].subtoken[i_subtok].is_redirection_output == 1
+	if (token[i_tok].subtoken[i_subtok].is_redirection_output == 1
 		|| token[i_tok].subtoken[i_subtok].is_redirection_input == 1
 		|| token[i_tok].subtoken[i_subtok].is_append_output == 1
 		|| token[i_tok].subtoken[i_subtok].is_here_doc == 1

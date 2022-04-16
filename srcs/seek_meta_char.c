@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 12:41:39 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/16 02:37:10 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/16 03:36:45 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,28 @@ int	seek_and_count_meta_char(t_token *token, int i)
 			meta_char_count++;
 		i_str++;
 	}
-	printf("seek_and_count_meta_char(): %d metachar(s) found\n", meta_char_count);
+	printf("seek_and_count_meta_char(): %d metachar found\n", meta_char_count);
 	return (meta_char_count);
 }
 
-void	display_which_meta(int ret) //DEBUG a supprimer/mettre en commentaire norme avant le rendu
+/*
+ *
+		DEBUG a supprimer/mettre en commentaire norme avant le rendu
+void	display_which_meta(int ret)
 {
 	if (ret == 1)
-		printf("seek_meta: ret value is %d -> redirection input meta char found\n", ret);
+		printf("seek_meta: ret value is %d -> redirection input found\n", ret);
 	else if (ret == 2)
-		printf("seek_meta: ret value is %d -> redirection output meta char found\n", ret);
+		printf("seek_meta: ret value is %d -> redirection output found\n", ret);
 	else if (ret == 3)
-		printf("seek_meta: ret value is %d -> pipe meta char found\n", ret);
+		printf("seek_meta: ret value is %d -> pipe found\n", ret);
 	else if (ret == 4)
-		printf("seek_meta: ret value is %d -> here_doc meta char found\n", ret);
+		printf("seek_meta: ret value is %d -> here_doc meta found\n", ret);
 	else if (ret == 5)
-		printf("seek_meta: ret value is %d -> append output meta char found\n", ret);
+		printf("seek_meta: ret value is %d -> append output found\n", ret);
 }
+ *
+ */
 
 int	seek_meta_char(t_token *token, int i)
 {

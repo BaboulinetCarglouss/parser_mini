@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 12:37:50 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/15 13:45:20 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/16 03:39:18 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	subtokenize_loop(t_token *token, t_index *subindex, int i_tok, int i_subtok)
 	return (0);
 }
 
-int	subtokenize(t_token *token , int i_tok)
+int	subtokenize(t_token *token, int i_tok)
 {
 	t_index	*subindex;
 	int		i_subtok;
@@ -64,14 +64,15 @@ int	subtokenize(t_token *token , int i_tok)
 	subindex = subindexing(token, i_tok);
 	if (subindex == NULL)
 		return (-1);
-	token[i_tok].subtoken = (t_subtoken *)malloc(sizeof(t_subtoken)
-			* (subindex->nb_word + 2));
+	token[i_tok].subtoken = (t_subtoken *)malloc(
+			sizeof(t_subtoken) * (subindex->nb_word + 2));
 	if (token[i_tok].subtoken == NULL)
 	{
 		perror("subtokenize(): error allocating subtoken to token");
 		return (-1);
 	}
-	ft_memset((void *)token[i_tok].subtoken, 0, sizeof(t_subtoken) * (subindex->nb_word + 2));
+	ft_memset((void *)token[i_tok].subtoken, 0,
+		sizeof(t_subtoken) * (subindex->nb_word + 2));
 	if (subtokenize_loop(token, subindex, i_tok, i_subtok) == -1)
 	{
 		perror("subtokenize(): error while loop");

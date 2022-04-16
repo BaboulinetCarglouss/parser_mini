@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 16:37:19 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/14 12:57:13 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/16 03:37:41 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	subindexing_loop_instructions(t_token *token, t_index *subindex,
 			if (stock_meta == 0 && ret != 0)
 				stock_meta = ret;
 		}
-		if (subindex->begin_word[j] != -1 && which_meta_char(token, i_tok, i_str + 1) != stock_meta)
+		if (subindex->begin_word[j] != -1
+			&& which_meta_char(token, i_tok, i_str + 1) != stock_meta)
 		{
 			if (ret == 4 || ret == 5)
 				subindex->end_word[j] = i_str + 1;
@@ -50,7 +51,7 @@ void	subindexing_loop_instructions(t_token *token, t_index *subindex,
 
 t_index	*subindexing(t_token *token, int i_tok)
 {
-	int	i_str;
+	int		i_str;
 	t_index	*subindex;
 
 	i_str = 0;

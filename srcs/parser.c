@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 18:00:34 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/16 02:36:20 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/16 03:35:13 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	display_dq_token(t_token *token, int i)
 	i_dq = 0;
 	while (i_dq < token[i].nb_subtoken)
 	{
-		printf("\tfrom token[%d]->double quoted token[%d] = %s\n",i, i_dq, token[i].dq[i_dq].dq_elem);
+		printf("\tfrom token[%d]->double quoted token[%d] = %s\n", i, i_dq,
+			token[i].dq[i_dq].dq_elem);
 		i_dq++;
 	}
 }
@@ -104,7 +105,7 @@ void	display_subtoken(t_token *token, int i_tok)
 	while (i_subtok < token[i_tok].nb_subtoken)
 	{
 		printf("\ttoken[%d]->subtoken[%d] = %s\n", i_tok, i_subtok,
-				token[i_tok].subtoken[i_subtok].sub_elem);
+			token[i_tok].subtoken[i_subtok].sub_elem);
 		//which_sub_is(token, i_tok, i_subtok);
 		//display_sub_token_properties(token, i_tok, i_subtok);
 		i_subtok++;

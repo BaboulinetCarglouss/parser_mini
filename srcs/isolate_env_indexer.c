@@ -6,13 +6,13 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 16:37:19 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/15 22:50:34 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/16 03:33:51 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_space_or_null_or_dquote(char c)
+int	is_space_or_null_or_dquote(char c)
 {
 	if (c == 0 || c == 32 || c == '\"' || c == '$')
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: gfritsch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 12:37:50 by gfritsch          #+#    #+#             */
-/*   Updated: 2022/04/15 23:03:57 by gfritsch         ###   ########.fr       */
+/*   Updated: 2022/04/16 03:31:45 by gfritsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	dq_tokenize_loop(t_token *token, t_index *dq_index, int i_tok, int i_dq)
 	return (0);
 }
 
+/*
+ *
 void	debug_indexing(t_token *token, int i_tok, t_index *dq_index)
 {
 	int	i;
@@ -61,11 +63,15 @@ void	debug_indexing(t_token *token, int i_tok, t_index *dq_index)
 	i = 0;
 	while (i < dq_index->nb_word - 1)
 	{
-		printf("dq_index->beginword[%d] = %d->%c\n", i, dq_index->begin_word[i], token[i_tok].elem[dq_index->begin_word[i]]);
-		printf("dq_index->endword[%d] = %d->%c\n", i, dq_index->end_word[i], token[i_tok].elem[dq_index->end_word[i]]);
+		printf("dq_index->beginword[%d] = %d->%c\n", i, dq_index->begin_word[i],
+		token[i_tok].elem[dq_index->begin_word[i]]);
+		printf("dq_index->endword[%d] = %d->%c\n", i, dq_index->end_word[i],
+		token[i_tok].elem[dq_index->end_word[i]]);
 		i++;
 	}
 }
+ *
+ */
 
 int	double_quote_tokenize(t_token *token, int i_tok)
 {
@@ -74,7 +80,6 @@ int	double_quote_tokenize(t_token *token, int i_tok)
 
 	i_dq = 0;
 	dq_index = env_indexing(token, i_tok);
-	//debug_indexing(token, i_tok, dq_index);
 	if (dq_index == NULL)
 		return (-1);
 	token[i_tok].dq = (t_dq *)malloc(sizeof(t_dq) * (dq_index->nb_word + 2));
